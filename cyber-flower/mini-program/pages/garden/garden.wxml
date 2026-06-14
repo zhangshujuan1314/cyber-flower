@@ -1,0 +1,93 @@
+<!-- 花园主页 -->
+<view class="garden-page" style="padding-top: {{safeAreaTop}}px;">
+  <!-- 节气栏 -->
+  <view class="season-bar" wx:if="{{currentSolarTerm}}">
+    <text class="season-bar__icon">{{currentSeason === 'spring' ? '🌸' : currentSeason === 'summer' ? '☀️' : currentSeason === 'autumn' ? '🍂' : '❄️'}}</text>
+    <text class="season-bar__name">{{currentSolarTerm.name}} · {{currentSolarTerm.description}}</text>
+  </view>
+
+  <!-- 空花园 -->
+  <view class="garden-empty" wx:if="{{!hasFlowers && !isLoading}}">
+    <view class="garden-empty__hero">🪴</view>
+    <text class="garden-empty__title text-h2 text-serif">你的花园还是空的</text>
+    <text class="garden-empty__desc text-body text-tertiary">输入一个词，让AI为你创造第一朵独一无二的花</text>
+    <view class="garden-empty__quick-breed">
+      <input class="quick-breed-input" placeholder="如: 雨后彩虹..." value="{{seedKeyword}}" bindinput="onSeedKeywordInput" confirm-type="done" bindconfirm="handleQuickBreed" />
+      <button class="quick-breed-btn" bind:tap="handleQuickBreed" loading="{{isGeneratingSeed}}">✨ 生成</button>
+    </view>
+    <text class="text-caption text-tertiary" style="margin-top: 16rpx;">或去育种页查看更多选项 →</text>
+  </view>
+
+  <!-- 有花的花园 -->
+  <view class="garden-main" wx:if="{{hasFlowers}}">
+    <!-- 花朵指示器 -->
+    <view class="flower-dots" wx:if="{{flowerCount > 1}}">
+      <view wx:for="{{flowerCount}}" wx:key="index" class="flower-dots__dot {{index === currentFlowerIndex ? 'active' : ''}}"></view>
+    </view>
+
+    <!-- 花名 -->
+    <view class="flower-name-area">
+      <text class="text-h2 text-serif">{{currentFlower.name}}</text>
+    </view>
+
+    <!-- Canvas花朵展示 -->
+    <view class="flower-stage">
+      <flower-viewer
+        flower="{{currentFlower}}"
+        careAnimating="{{careAnimating}}"
+        size="{{580}}"
+        bind:swipe="handleSwipeFlower"
+        bind:doubletap="goToChat"
+      />
+    </view>
+
+    <!-- 健康/幸福度条 -->
+    <view class="flower-stats" wx:if="{{currentFlower}}">
+      <view class="flower-stat">
+        <text class="flower-stat__label">❤️ 健康</text>
+        <view class="flower-stat__bar"><view class="flower-stat__fill flower-stat__fill--health" style="width: {{currentFlower.health}}%"></view></view>
+        <text class="flower-stat__num">{{currentFlower.health}}</text>
+      </view>
+      <view class="flower-stat">
+        <text class="flower-stat__label">😊 幸福</text>
+        <view class="flower-stat__bar"><view class="flower-stat__fill flower-stat__fill--happiness" style="width: {{currentFlower.happiness}}%"></view></view>
+        <text class="flower-stat__num">{{currentFlower.happiness}}</text>
+      </view>
+    </view>
+
+    <!-- 花语气泡 -->
+    <view class="chat-preview" wx:if="{{showChatPreview}}" animation="{{chatBubbleAnim}}">
+      <view class="chat-preview__bubble">
+        <text>{{chatMessage}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载 -->
+  <view class="garden-loading" wx:if="{{isLoading}}">
+    <view class="loading-spinner"></view>
+    <text class="text-body text-tertiary">花园加载中...</text>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="garden-action-bar safe-area-bottom" wx:if="{{hasFlowers}}">
+    <view class="action-row">
+      <view class="action-item" bind:tap="handleCare" data-action="water" data-value="15">
+        <text class="action-icon">💧</text>
+        <text class="action-label">浇水</text>
+      </view>
+      <view class="action-item" bind:tap="handleCare" data-action="fertilize" data-value="20">
+        <text class="action-icon">🌱</text>
+        <text class="action-label">施肥</text>
+      </view>
+      <view class="action-item" bind:tap="goToChat">
+        <text class="action-icon">💬</text>
+        <text class="action-label">对话</text>
+      </view>
+      <view class="action-item" bind:tap="goToBreed">
+        <text class="action-icon">🎁</text>
+        <text class="action-label">育种</text>
+      </view>
+    </view>
+  </view>
+</view>

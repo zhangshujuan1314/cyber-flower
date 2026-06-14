@@ -1,0 +1,24 @@
+<view class="memorial-page page-container">
+  <view class="memorial-header">
+    <text class="text-h2 text-serif">纪念花园</text>
+    <text class="text-body text-tertiary">{{totalLives}} 个生命 · {{totalCareActions}} 次呵护</text>
+  </view>
+
+  <view wx:if="{{memorialFlowers.length > 0}}">
+    <view wx:for="{{memorialFlowers}}" wx:key="_id" class="memorial-card" data-flower="{{item}}" bind:tap="viewFlowerStory">
+      <image class="memorial-card__img" src="{{item.image}}" mode="aspectFill" />
+      <view class="memorial-card__overlay">
+        <text class="memorial-card__name text-serif">{{item.name}}</text>
+        <text class="memorial-card__lifespan">陪伴 {{item.lifespan}} 天</text>
+        <text class="memorial-card__date">{{item.endedAt}}</text>
+      </view>
+      <view class="memorial-card__glow"></view>
+    </view>
+  </view>
+
+  <view wx:elif="{{!isLoading}}" class="memorial-empty">
+    <text class="memorial-empty__icon">🪴</text>
+    <text class="text-h3 text-serif">还没有花完成它的生命旅程</text>
+    <text class="text-body text-tertiary">每一次告别，都是新的开始</text>
+  </view>
+</view>

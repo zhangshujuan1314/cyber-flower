@@ -1,0 +1,195 @@
+/**
+ * 赛博养花 — 全局样式
+ * 设计令牌系统 + 基础重置 + 工具类
+ */
+
+/* ============================================
+   设计令牌 (CSS Variables)
+   ============================================ */
+
+page {
+  /* 主色系 — 自然绿 */
+  --color-primary-900: #1A3A2A;
+  --color-primary-700: #2D5A3D;
+  --color-primary-500: #3E7B52;
+  --color-primary-300: #6BAF7B;
+  --color-primary-100: #A3D9B1;
+
+  /* 辅助色 — 大地棕 */
+  --color-secondary-900: #3C2415;
+  --color-secondary-700: #5C3D2E;
+  --color-secondary-500: #8B6914;
+  --color-secondary-300: #C4A265;
+  --color-secondary-100: #E8D5B7;
+
+  /* 强调色 — 花语粉 */
+  --color-accent-900: #8B2252;
+  --color-accent-700: #C71585;
+  --color-accent-500: #E75480;
+  --color-accent-300: #F5A0B8;
+  --color-accent-100: #FDE0E8;
+
+  /* 中性色 */
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #2D2D3F;
+  --color-text-tertiary: #6B6B7B;
+  --color-bg-primary: #F5F0EB;
+  --color-bg-white: #FFFFFF;
+  --color-bg-card: #FFFFFF;
+  --color-border: rgba(26, 58, 42, 0.08);
+
+  /* 功能色 */
+  --color-success: #4CAF50;
+  --color-warning: #FF9800;
+  --color-danger: #E57373;
+  --color-info: #7C4DFF;
+
+  /* 稀有度色 */
+  --color-rarity-common: #6B6B7B;
+  --color-rarity-uncommon: #4CAF50;
+  --color-rarity-rare: #7C4DFF;
+  --color-rarity-epic: #FF6D00;
+  --color-rarity-legendary: linear-gradient(135deg, #FFD700, #FF6D00, #E75480);
+
+  /* 间距 */
+  --spacing-xs: 4rpx;
+  --spacing-sm: 8rpx;
+  --spacing-md: 16rpx;
+  --spacing-lg: 24rpx;
+  --spacing-xl: 32rpx;
+  --spacing-2xl: 48rpx;
+  --spacing-3xl: 64rpx;
+
+  /* 圆角 */
+  --radius-sm: 8rpx;
+  --radius-md: 12rpx;
+  --radius-lg: 16rpx;
+  --radius-xl: 20rpx;
+  --radius-2xl: 24rpx;
+  --radius-full: 9999rpx;
+
+  /* 阴影 */
+  --shadow-sm: 0 2rpx 8rpx rgba(26, 58, 42, 0.04);
+  --shadow-md: 0 4rpx 20rpx rgba(26, 58, 42, 0.08);
+  --shadow-lg: 0 8rpx 32rpx rgba(26, 58, 42, 0.12);
+  --shadow-xl: 0 16rpx 48rpx rgba(26, 58, 42, 0.16);
+
+  /* 字体 */
+  --font-family-display: 'Songti SC', 'Noto Serif CJK SC', 'STSong', serif;
+  --font-family-body: -apple-system, 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
+
+  /* 字号 */
+  --text-h1: 36rpx;
+  --text-h2: 30rpx;
+  --text-h3: 26rpx;
+  --text-h4: 22rpx;
+  --text-body-lg: 18rpx;
+  --text-body: 16rpx;
+  --text-body-sm: 14rpx;
+  --text-caption: 12rpx;
+
+  /* 动画 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 400ms;
+}
+
+/* ============================================
+   基础重置
+   ============================================ */
+
+page {
+  font-family: var(--font-family-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   工具类
+   ============================================ */
+
+/* 排版 */
+.text-h1 { font-size: var(--text-h1); font-weight: 700; line-height: 1.3; }
+.text-h2 { font-size: var(--text-h2); font-weight: 600; line-height: 1.3; }
+.text-h3 { font-size: var(--text-h3); font-weight: 500; line-height: 1.4; }
+.text-body { font-size: var(--text-body); font-weight: 400; line-height: 1.6; }
+.text-caption { font-size: var(--text-caption); font-weight: 400; line-height: 1.4; }
+.text-serif { font-family: var(--font-family-display); }
+
+/* 颜色 */
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary { color: var(--color-text-tertiary); }
+.text-accent { color: var(--color-accent-500); }
+
+/* 布局 */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-1 { flex: 1; }
+
+/* 间距 */
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+.p-xl { padding: var(--spacing-xl); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+/* 圆角 */
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* 阴影 */
+.shadow-md { box-shadow: var(--shadow-md); }
+
+/* 文本 */
+.text-center { text-align: center; }
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 背景 */
+.bg-white { background-color: var(--color-bg-white); }
+.bg-primary { background-color: var(--color-bg-primary); }
+
+/* ============================================
+   页面容器
+   ============================================ */
+
+.page-container {
+  min-height: 100vh;
+  padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.page-container--no-tab {
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+}
+
+/* ============================================
+   安全区域适配
+   ============================================ */
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}

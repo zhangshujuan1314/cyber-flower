@@ -1,0 +1,6 @@
+.care-panel { display: flex; gap: 16rpx; padding: 20rpx 24rpx; background: rgba(255,255,255,0.85); backdrop-filter: blur(20rpx); border-radius: var(--radius-2xl); box-shadow: var(--shadow-lg); }
+.care-btn { display: flex; flex-direction: column; align-items: center; gap: 4rpx; padding: 12rpx 20rpx; border-radius: var(--radius-lg); transition: all 150ms ease; }
+.care-btn:active { background: rgba(62,123,82,0.08); transform: scale(0.95); }
+.care-btn__icon { font-size: 36rpx; }
+.care-btn__label { font-size: var(--text-caption); color: var(--color-text-secondary); }
+.care-btn__count { font-size: 10rpx; color: var(--color-text-tertiary); }

@@ -1,0 +1,7 @@
+<view class="care-panel">
+  <view wx:for="{{actions}}" wx:key="key" class="care-btn" data-action="{{item.key}}" bind:tap="onCare">
+    <text class="care-btn__icon">{{item.icon}}</text>
+    <text class="care-btn__label">{{item.label}}</text>
+    <text class="care-btn__count">{{item.count}}</text>
+  </view>
+</view>

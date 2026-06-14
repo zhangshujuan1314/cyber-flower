@@ -1,0 +1,96 @@
+<!-- 育种页 -->
+<view class="breed-page page-container">
+
+  <!-- Tab切换 -->
+  <view class="breed-tabs">
+    <view class="breed-tab {{activeTab === 'generate' ? 'breed-tab--active' : ''}}" data-tab="generate" bind:tap="switchTab">
+      ✨ AI生成
+    </view>
+    <view class="breed-tab {{activeTab === 'daily' ? 'breed-tab--active' : ''}}" data-tab="daily" bind:tap="switchTab">
+      🎁 每日种子
+    </view>
+    <view class="breed-tab {{activeTab === 'backpack' ? 'breed-tab--active' : ''}}" data-tab="backpack" bind:tap="switchTab">
+      🎒 我的种子
+    </view>
+  </view>
+
+  <!-- AI生成面板 -->
+  <view class="breed-panel" wx:if="{{activeTab === 'generate'}}">
+    <view class="breed-input-area">
+      <textarea
+        class="breed-input"
+        placeholder="描述你心中的花... 如: 雨后彩虹般绚烂的花朵"
+        value="{{keyword}}"
+        bindinput="onKeywordInput"
+        maxlength="50"
+        auto-height
+      />
+      <view class="breed-moods">
+        <text
+          wx:for="{{moods}}"
+          wx:key="index"
+          class="breed-mood {{selectedMood === item ? 'breed-mood--active' : ''}}"
+          data-mood="{{item}}"
+          bind:tap="selectMood"
+        >{{item}}</text>
+      </view>
+      <button
+        class="breed-generate-btn"
+        bind:tap="generateSeed"
+        disabled="{{isGenerating || !keyword}}"
+        loading="{{isGenerating}}"
+      >
+        {{isGenerating ? 'AI正在孕育种子...' : '✨ 生成种子'}}
+      </button>
+    </view>
+
+    <!-- 生成结果 -->
+    <view class="breed-result" wx:if="{{generatedSeed}}">
+      <view class="breed-result-card">
+        <seed-card seed="{{generatedSeed}}" showPlant="{{true}}" bind:plant="plantSeed" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 每日种子面板 -->
+  <view class="breed-panel" wx:if="{{activeTab === 'daily'}}">
+    <view class="daily-header">
+      <text class="text-h3 text-serif">今日种子</text>
+      <text class="text-caption text-tertiary">{{dailyClaimed ? '今日已领取' : '每天可领取1颗'}}</text>
+    </view>
+    <view class="daily-grid">
+      <view
+        wx:for="{{dailySeeds}}"
+        wx:key="index"
+        class="daily-item {{dailyClaimed ? 'daily-item--claimed' : ''}}"
+        data-index="{{index}}"
+        bind:tap="claimDailySeed"
+      >
+        <image class="daily-item__img" src="{{item.previewImage || '/assets/images/seed-mystery.png'}}" mode="aspectFit" />
+        <text class="daily-item__name">{{dailyClaimed ? '已领取' : item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 种子背包 -->
+  <view class="breed-panel" wx:if="{{activeTab === 'backpack'}}">
+    <view class="backpack-header">
+      <text class="text-h3 text-serif">我的种子</text>
+      <text class="text-caption text-tertiary">共 {{mySeeds.length}} 颗</text>
+    </view>
+    <view class="backpack-grid" wx:if="{{mySeeds.length > 0}}">
+      <seed-card
+        wx:for="{{mySeeds}}"
+        wx:key="_id"
+        seed="{{item}}"
+        showPlant="{{item.status === 'idle'}}"
+        bind:plant="plantSeed"
+        data-seed-id="{{item._id}}"
+      />
+    </view>
+    <view class="backpack-empty" wx:else>
+      <text class="text-body text-tertiary">还没有种子，去AI生成或领取每日种子吧~</text>
+    </view>
+  </view>
+
+</view>

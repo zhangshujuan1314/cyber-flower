@@ -1,0 +1,39 @@
+<!-- 个人中心 -->
+<view class="profile-page page-container" style="padding-top: {{safeAreaTop + 48}}px;">
+
+  <!-- 用户卡片 -->
+  <view class="profile-card" wx:if="{{isLoggedIn}}">
+    <image class="profile-avatar" src="{{avatar}}" mode="aspectFill" />
+    <text class="profile-name text-h2 text-serif">{{nickname}}</text>
+    <view class="profile-stats">
+      <view class="profile-stat"><text class="profile-stat__num">{{stats.totalFlowers}}</text><text class="profile-stat__label">累计养花</text></view>
+      <view class="profile-stat"><text class="profile-stat__num">{{stats.gardenLevel}}</text><text class="profile-stat__label">花园等级</text></view>
+      <view class="profile-stat"><text class="profile-stat__num">{{stats.collectionCount}}</text><text class="profile-stat__label">图鉴收集</text></view>
+      <view class="profile-stat"><text class="profile-stat__num">{{stats.careStreak}}天</text><text class="profile-stat__label">连续照料</text></view>
+    </view>
+  </view>
+
+  <!-- 未登录 -->
+  <view class="profile-login" wx:else>
+    <view class="profile-login__avatar">🌱</view>
+    <text class="text-h3 text-serif">登录赛博养花</text>
+    <button class="btn-primary" bind:tap="handleLogin">微信一键登录</button>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="profile-menu">
+    <view wx:for="{{menuItems}}" wx:key="title" class="profile-menu-item">
+      <text class="profile-menu-item__icon">{{item.icon}}</text>
+      <view class="profile-menu-item__content">
+        <text class="profile-menu-item__title">{{item.title}}</text>
+        <text class="profile-menu-item__desc">{{item.desc}}</text>
+      </view>
+      <text class="profile-menu-item__arrow">→</text>
+    </view>
+  </view>
+
+  <!-- 退出 -->
+  <view class="profile-logout" wx:if="{{isLoggedIn}}" bind:tap="handleLogout">
+    <text class="text-body text-tertiary">退出登录</text>
+  </view>
+</view>

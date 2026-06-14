@@ -1,0 +1,13 @@
+.chat-page { display: flex; flex-direction: column; height: 100vh; background: var(--color-bg-primary); }
+.chat-flower-mini { display: flex; flex-direction: column; align-items: center; padding: 24rpx; background: var(--color-bg-white); }
+.chat-flower-img { width: 120rpx; height: 120rpx; border-radius: 50%; }
+.chat-flower-name { margin-top: 8rpx; color: var(--color-text-secondary); }
+.chat-messages { flex: 1; padding: 24rpx 32rpx; }
+.chat-empty { text-align: center; padding-top: 200rpx; }
+.chat-msg { margin-bottom: 24rpx; display: flex; }
+.chat-msg--user { justify-content: flex-end; }
+.chat-msg--flower { justify-content: flex-start; }
+.chat-input-bar { display: flex; align-items: center; gap: 16rpx; padding: 16rpx 24rpx; background: var(--color-bg-white); border-top: 1rpx solid var(--color-border); }
+.chat-input { flex: 1; height: 72rpx; padding: 0 24rpx; background: var(--color-bg-primary); border-radius: var(--radius-full); font-size: var(--text-body); }
+.chat-send-btn { width: 120rpx; height: 72rpx; background: var(--color-primary-500); color: #fff; font-size: var(--text-body); border-radius: var(--radius-full); border: none; display: flex; align-items: center; justify-content: center; }
+.chat-send-btn[disabled] { opacity: 0.4; }

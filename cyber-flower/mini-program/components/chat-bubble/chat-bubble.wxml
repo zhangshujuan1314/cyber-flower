@@ -1,0 +1,7 @@
+<view class="chat-bubble {{isUser ? 'chat-bubble--user' : ''}}">
+  <text wx:if="{{!isUser}}" class="chat-bubble__sender text-caption">🌸 {{flowerName}}</text>
+  <view class="chat-bubble__body {{isUser ? 'chat-bubble__body--user' : 'chat-bubble__body--flower'}}">
+    <text>{{message}}</text>
+  </view>
+  <text wx:if="{{isUser}}" class="chat-bubble__sender text-caption" style="text-align:right">🧑 我</text>
+</view>

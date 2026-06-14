@@ -1,0 +1,4 @@
+<view class="season-indicator" wx:if="{{solarTerm}}">
+  <text class="season-indicator__icon">{{seasonIcons[currentSeason] || '🌸'}}</text>
+  <text class="season-indicator__name">{{solarTerm.name}} · {{solarTerm.description}}</text>
+</view>

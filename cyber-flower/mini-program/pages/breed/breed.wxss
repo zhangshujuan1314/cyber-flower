@@ -1,0 +1,22 @@
+.breed-page { background: var(--color-bg-primary); min-height: 100vh; }
+.breed-tabs { display: flex; padding: 24rpx 32rpx; gap: 12rpx; }
+.breed-tab { flex: 1; height: 64rpx; display: flex; align-items: center; justify-content: center; font-size: var(--text-body); color: var(--color-text-tertiary); background: var(--color-bg-white); border-radius: var(--radius-lg); }
+.breed-tab--active { background: var(--color-primary-500); color: #fff; font-weight: 600; }
+.breed-panel { padding: 24rpx 32rpx; }
+.breed-input-area { background: var(--color-bg-white); border-radius: var(--radius-xl); padding: 32rpx; box-shadow: var(--shadow-sm); }
+.breed-input { width: 100%; min-height: 120rpx; font-size: var(--text-body-lg); color: var(--color-text-primary); }
+.breed-moods { display: flex; flex-wrap: wrap; gap: 12rpx; margin-top: 24rpx; }
+.breed-mood { padding: 8rpx 20rpx; font-size: var(--text-body-sm); color: var(--color-text-secondary); background: var(--color-bg-primary); border-radius: var(--radius-full); }
+.breed-mood--active { background: var(--color-accent-100); color: var(--color-accent-700); }
+.breed-generate-btn { width: 100%; height: 88rpx; margin-top: 32rpx; background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-300)); color: #fff; font-size: var(--text-body); font-weight: 600; border-radius: var(--radius-lg); border: none; display: flex; align-items: center; justify-content: center; }
+.breed-generate-btn[disabled] { opacity: 0.5; }
+.breed-result { margin-top: 32rpx; }
+.daily-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24rpx; }
+.daily-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16rpx; }
+.daily-item { background: var(--color-bg-white); border-radius: var(--radius-lg); padding: 24rpx; display: flex; flex-direction: column; align-items: center; gap: 12rpx; }
+.daily-item--claimed { opacity: 0.5; }
+.daily-item__img { width: 120rpx; height: 120rpx; }
+.daily-item__name { font-size: var(--text-body-sm); color: var(--color-text-secondary); }
+.backpack-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24rpx; }
+.backpack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; }
+.backpack-empty { padding: 96rpx 32rpx; text-align: center; }
