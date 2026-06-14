@@ -50,7 +50,7 @@ Page({
       cancelText: '关闭',
       success: (res) => {
         if (res.confirm && flower.previousLife) {
-          wx.navigateTo({ url: `/pages/garden/garden?flowerId=${flower.previousLife}` });
+          wx.switchTab({ url: '/pages/garden/garden' });
         }
       },
     });

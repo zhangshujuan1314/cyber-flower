@@ -32,11 +32,16 @@ export class BreedService {
 
     // 2. LLM生成花种DNA
     this.logger.log(`[Breed] Generating seed for: "${sanitizedKeyword}"`);
-    const genomeData = await this.llmService.chatJson(
-      SEED_GEN_SYSTEM,
-      seedGenUserPrompt(sanitizedKeyword, mood),
-      { temperature: 0.9, maxTokens: 2048 },
-    );
+    let genomeData: Record<string, unknown> = {};
+    try {
+      genomeData = await this.llmService.chatJson(
+        SEED_GEN_SYSTEM,
+        seedGenUserPrompt(sanitizedKeyword, mood),
+        { temperature: 0.9, maxTokens: 2048 },
+      );
+    } catch (error) {
+      this.logger.warn('LLM 不可用，降级为默认基因');
+    }
 
     // 3. 构建Genome
     const genome: Genome = {

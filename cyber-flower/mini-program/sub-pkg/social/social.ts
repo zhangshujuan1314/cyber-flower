@@ -24,7 +24,7 @@ Page({
 
   visitGarden(e: WechatMiniprogram.BaseEvent) {
     const userId = e.currentTarget.dataset.userId as string;
-    wx.navigateTo({ url: `/pages/social/garden?userId=${userId}` });
+    wx.navigateTo({ url: `/sub-pkg/friend-garden/friend-garden?userId=${userId}` });
   },
 
   acceptGift(e: WechatMiniprogram.BaseEvent) {

@@ -174,7 +174,7 @@ Page({
   async goToChat() {
     const flower = gardenStore.currentFlower as FlowerData | null;
     if (!flower) return;
-    wx.navigateTo({ url: `/pages/chat/chat?flowerId=${flower._id}&name=${flower.name}&image=${flower.visualState?.currentImage || ''}` });
+    wx.navigateTo({ url: `/sub-pkg/chat/chat?flowerId=${flower._id}&name=${flower.name}&image=${flower.visualState?.currentImage || ''}` });
   },
 
   goToBreed() {
