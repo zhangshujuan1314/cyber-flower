@@ -2,10 +2,20 @@
   "description": "赛博养花 - AI驱动的真实感虚拟养花小程序",
   "packOptions": {
     "ignore": [
-      { "type": "folder", "value": ".git" },
-      { "type": "folder", "value": "node_modules" },
-      { "type": "file", "value": ".eslintrc.js" }
-    ]
+      {
+        "value": ".git",
+        "type": "folder"
+      },
+      {
+        "value": "node_modules",
+        "type": "folder"
+      },
+      {
+        "value": ".eslintrc.js",
+        "type": "file"
+      }
+    ],
+    "include": []
   },
   "setting": {
     "bundle": false,
@@ -18,7 +28,7 @@
     "compileHotReLoad": true,
     "lazyloadPlaceholderEnable": false,
     "preloadBackgroundData": false,
-    "minified": true,
+    "minified": false,
     "autoAudits": false,
     "newFeature": false,
     "uglifyFileName": false,
@@ -45,11 +55,15 @@
     "compileWorklet": false,
     "localPlugins": false,
     "disableUseStrict": false,
-    "useCompilerPlugins": ["typescript"]
+    "useCompilerPlugins": [
+      "typescript"
+    ],
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
   "libVersion": "3.6.0",
-  "appid": "YOUR_APPID_HERE",
+  "appid": "wx770fa9131cba8371",
   "projectname": "cyber-bloom",
   "condition": {},
   "editorSetting": {

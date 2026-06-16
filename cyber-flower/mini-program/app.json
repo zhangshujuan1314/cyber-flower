@@ -1,18 +1,18 @@
 {
   "pages": [
     "pages/garden/garden",
-    "pages/breed/breed"
+    "pages/breed/breed",
+    "pages/collection/collection",
+    "pages/social/social",
+    "pages/profile/profile"
   ],
   "subPackages": [
     {
       "root": "sub-pkg",
       "pages": [
         "chat/chat",
-        "collection/collection",
-        "social/social",
         "friend-garden/friend-garden",
         "memorial/memorial",
-        "profile/profile",
         "privacy/privacy"
       ]
     }
@@ -38,9 +38,9 @@
     "list": [
       { "pagePath": "pages/garden/garden", "text": "花园", "iconPath": "assets/icons/tab-garden.png", "selectedIconPath": "assets/icons/tab-garden-active.png" },
       { "pagePath": "pages/breed/breed", "text": "育种", "iconPath": "assets/icons/tab-breed.png", "selectedIconPath": "assets/icons/tab-breed-active.png" },
-      { "pagePath": "sub-pkg/collection/collection", "text": "图鉴", "iconPath": "assets/icons/tab-collection.png", "selectedIconPath": "assets/icons/tab-collection-active.png" },
-      { "pagePath": "sub-pkg/social/social", "text": "社交", "iconPath": "assets/icons/tab-social.png", "selectedIconPath": "assets/icons/tab-social-active.png" },
-      { "pagePath": "sub-pkg/profile/profile", "text": "我的", "iconPath": "assets/icons/tab-profile.png", "selectedIconPath": "assets/icons/tab-profile-active.png" }
+      { "pagePath": "pages/collection/collection", "text": "图鉴", "iconPath": "assets/icons/tab-collection.png", "selectedIconPath": "assets/icons/tab-collection-active.png" },
+      { "pagePath": "pages/social/social", "text": "社交", "iconPath": "assets/icons/tab-social.png", "selectedIconPath": "assets/icons/tab-social-active.png" },
+      { "pagePath": "pages/profile/profile", "text": "我的", "iconPath": "assets/icons/tab-profile.png", "selectedIconPath": "assets/icons/tab-profile-active.png" }
     ]
   },
   "networkTimeout": {

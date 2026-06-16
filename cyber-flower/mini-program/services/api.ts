@@ -3,7 +3,7 @@
  * 统一的网络请求层，处理Token、错误、重试
  */
 
-const BASE_URL = 'https://api.cyberbloom.cn/v1';
+const BASE_URL = 'http://localhost:3000/v1';
 const TIMEOUT = 30000;
 
 /** 请求配置 */
