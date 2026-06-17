@@ -17,7 +17,7 @@ const STAGE_LAYER_CONFIG: Record<string, Record<string, number>> = {
 Component({
   properties: {
     flower: { type: Object, value: null, observer: 'onFlowerChange' },
-    careAnimating: { type: String, value: null, observer: 'onCareAnimatingChange' },
+    careAnimating: { type: String, value: '', observer: 'onCareAnimatingChange' },
     size: { type: Number, value: 500 },
   },
 
@@ -52,9 +52,9 @@ Component({
           this.renderer.bindCanvas(canvas, this.data.canvasWidth, this.data.canvasHeight);
           this.renderer.start();
 
-          // 初始渲染
-          if (this.properties.flower) {
-            this.updateFlowerLayers(this.properties.flower);
+          // renderer 就绪后重放——onFlowerChange 先到时 guard 挡掉了，这里补上
+          if (this.data.flower) {
+            this.updateFlowerLayers(this.data.flower as Record<string, unknown>);
           }
         }
       });
@@ -68,6 +68,7 @@ Component({
 
     /** 更新图层 */
     updateFlowerLayers(flower: Record<string, unknown>) {
+      if (!this.renderer || typeof this.renderer.updateLayers !== 'function') return;
       const stage = (flower.stage as string) || 'seed';
       const config = STAGE_LAYER_CONFIG[stage] || STAGE_LAYER_CONFIG.seed;
       const baseImg = (flower.visualState as Record<string, string>)?.currentImage || '';

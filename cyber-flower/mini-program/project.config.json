@@ -62,7 +62,7 @@
     "disableSWC": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.6.0",
+  "libVersion": "3.16.1",
   "appid": "wx770fa9131cba8371",
   "projectname": "cyber-bloom",
   "condition": {},

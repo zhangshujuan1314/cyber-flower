@@ -50,7 +50,7 @@ Page({
 
   /** 种植种子 */
   async plantSeed(e: WechatMiniprogram.BaseEvent) {
-    const seedId = e.currentTarget.dataset.seedId as string;
+    const seedId = e.detail.seedId as string;
     this.setData({ isPlanting: true });
     try {
       await breedService.plantSeed(seedId);

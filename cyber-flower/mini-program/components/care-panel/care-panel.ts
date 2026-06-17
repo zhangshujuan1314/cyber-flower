@@ -19,7 +19,10 @@ Component({
   methods: {
     onCare(e: WechatMiniprogram.BaseEvent) {
       const action = e.currentTarget.dataset.action as string;
-      const value = action === 'water' ? 15 : action === 'fertilize' ? 20 : action === 'prune' ? 10 : 5;
+      if (!action) { console.warn('[care-panel] 按钮缺 data-action'); return; }
+      const value = action === 'water' ? 15
+                  : action === 'fertilize' ? 20
+                  : action === 'prune' ? 10 : 5;
       this.triggerEvent('care', { action, value });
     },
   },

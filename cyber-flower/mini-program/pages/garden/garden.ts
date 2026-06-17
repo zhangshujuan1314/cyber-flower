@@ -92,8 +92,10 @@ Page({
   },
 
   /** 照料操作 */
-  async handleCare(e: WechatMiniprogram.CustomEvent) {
-    const { action, value } = e.detail;
+  async handleCare(e: WechatMiniprogram.BaseEvent) {
+    const action = e.currentTarget.dataset.action as string;
+    const value = Number(e.currentTarget.dataset.value);
+    if (!action) { wx.showToast({ title: '参数缺失', icon: 'none' }); return; }
     const flower = gardenStore.currentFlower as FlowerData | null;
     if (!flower) return;
 

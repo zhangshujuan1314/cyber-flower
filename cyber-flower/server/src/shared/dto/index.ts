@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsEnum, IsOptional, Min, Max, MaxLength, MinLength, IsBoolean } from 'class-validator';
+import { IsString, IsNumber, IsEnum, IsIn, IsOptional, Min, Max, MaxLength, MinLength, IsBoolean } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 // ============ Auth DTOs ============
@@ -46,12 +46,8 @@ export class PlantFlowerDto {
 }
 
 export class CareFlowerDto {
-  @ApiProperty()
-  @IsString()
-  userId: string;
-
   @ApiProperty({ enum: ['water', 'fertilize', 'prune', 'adjust_light', 'talk'] })
-  @IsEnum(['water', 'fertilize', 'prune', 'adjust_light', 'talk'])
+  @IsIn(['water', 'fertilize', 'prune', 'adjust_light', 'talk'])
   action: string;
 
   @ApiProperty()
@@ -83,17 +79,9 @@ export class GenerateSeedDto {
   @ApiProperty({ required: false })
   @IsOptional() @IsString()
   mood?: string;
-
-  @ApiProperty()
-  @IsString()
-  userId: string;
 }
 
-export class PlantSeedDto {
-  @ApiProperty()
-  @IsString()
-  userId: string;
-}
+export class PlantSeedDto {}
 
 // ============ Chat DTOs ============
 

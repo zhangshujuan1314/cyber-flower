@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { TransformInterceptor } from './shared/interceptors/transform.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,6 +33,9 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
+
+  // 全局响应拦截器 — 统一 { code:0, message:'ok', data, timestamp }
+  app.useGlobalInterceptors(new TransformInterceptor());
 
   // 启动
   const port = process.env.PORT || 3000;
