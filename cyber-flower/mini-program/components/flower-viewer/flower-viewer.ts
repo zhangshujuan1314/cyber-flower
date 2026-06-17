@@ -46,7 +46,7 @@ Component({
       query.select('#flower-canvas').fields({ node: true, size: true }).exec((res) => {
         if (res[0] && res[0].node) {
           const canvas = res[0].node;
-          const dpr = wx.getSystemInfoSync().pixelRatio;
+          const dpr = wx.getWindowInfo().pixelRatio;
           canvas.width = this.data.canvasWidth * dpr;
           canvas.height = this.data.canvasHeight * dpr;
           this.renderer.bindCanvas(canvas, this.data.canvasWidth, this.data.canvasHeight);

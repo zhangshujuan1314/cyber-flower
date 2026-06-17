@@ -22,7 +22,7 @@ Page({
   },
 
   onLoad() {
-    const h = wx.getSystemInfoSync().statusBarHeight || 44;
+    const h = wx.getWindowInfo().statusBarHeight || 44;
     this.setData({ safeAreaTop: h });
   },
 

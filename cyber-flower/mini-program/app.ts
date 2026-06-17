@@ -31,7 +31,7 @@ App<IAppOption>({
     console.log('[CyberBloom] App launched', options.scene);
 
     // 获取系统信息
-    this.globalData.systemInfo = wx.getSystemInfoSync();
+    this.globalData.systemInfo = wx.getWindowInfo();
 
     // 检测当前季节
     this.detectCurrentSeason();

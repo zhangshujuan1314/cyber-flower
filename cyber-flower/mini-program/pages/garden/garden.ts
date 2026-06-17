@@ -25,7 +25,7 @@ Page({
   storeBindings: null as WechatMiniprogram.StoreBindings | null,
 
   onLoad() {
-    this.setData({ safeAreaTop: wx.getSystemInfoSync().statusBarHeight || 44 });
+    this.setData({ safeAreaTop: wx.getWindowInfo().statusBarHeight || 44 });
 
     (this as Record<string, unknown>).storeBindings = createStoreBindings(this, {
       store: gardenStore,

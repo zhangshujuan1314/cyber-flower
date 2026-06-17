@@ -70,7 +70,12 @@ class ApiService {
             header,
             timeout: config.timeout || TIMEOUT,
             success: resolve,
-            fail: reject,
+            fail: (err) => {
+              const networkErr: any = new Error(err.errMsg || '网络请求失败');
+              networkErr.statusCode = 0;          // 0 = 网络层错误，非 HTTP 状态码
+              networkErr.data = undefined;
+              reject(networkErr);
+            },
           });
         },
       );
@@ -87,7 +92,11 @@ class ApiService {
         return apiRes.data;
       }
 
-      throw new Error(apiRes.message || `请求失败: ${res.statusCode}`);
+      // 非 2xx 且非 401 → 带完整信息的 error
+      const httpErr: any = new Error(apiRes.message || `请求失败: ${res.statusCode}`);
+      httpErr.statusCode = res.statusCode;
+      httpErr.data = res.data;
+      throw httpErr;
     } catch (error) {
       console.error('[API] Request error:', config.url, error);
       throw error;
@@ -123,10 +132,18 @@ class ApiService {
       // 重放等待队列
       this.pendingQueue.forEach((p) => p.resolve());
       this.pendingQueue = [];
-    } catch (error) {
-      this.pendingQueue.forEach((p) => p.reject(error as Error));
-      this.pendingQueue = [];
-      this.clearToken();
+    } catch (error: any) {
+      const status = error?.statusCode;
+      // 只有 refresh token 真失效（401/403）才清登录态
+      if (status === 401 || status === 403) {
+        this.pendingQueue.forEach((p) => p.reject(error));
+        this.pendingQueue = [];
+        this.clearToken();
+      } else {
+        // 网络错误(0) / 服务端 5xx / 其他临时故障：保留 token，下次请求可重试
+        this.pendingQueue.forEach((p) => p.reject(error));
+        this.pendingQueue = [];
+      }
       throw error;
     } finally {
       this.refreshingToken = false;

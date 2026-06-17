@@ -61,7 +61,7 @@ class GardenStore {
   currentSolarTerm: SeasonInfo | null = null;
   isLoading = false;
   isPlanting = false;
-  careAnimating: string | null = null;
+  careAnimating: string = '';
 
   constructor() {
     makeObservable(this, {
