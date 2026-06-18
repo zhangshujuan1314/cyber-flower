@@ -3,6 +3,7 @@
  */
 
 import api from '../../services/api';
+import { getFlowerImage } from '../../utils/flowerImage';
 
 interface Message {
   id: string;
@@ -42,10 +43,11 @@ Page<ChatData>({
 
   async loadFlowerInfo(flowerId: string) {
     try {
-      const flower = await api.get<{ name: string; visualState: { currentImage: string } }>(`/flowers/${flowerId}`);
+      const flower = await api.get<{ name: string; genome: Record<string, unknown> }>(`/flowers/${flowerId}`);
+      const species = (flower.genome as Record<string, unknown>)?.species as string || flower.name;
       this.setData({
         flowerName: flower.name,
-        flowerImage: flower.visualState.currentImage,
+        flowerImage: getFlowerImage(species),
       });
       wx.setNavigationBarTitle({ title: flower.name });
     } catch (_) {}
