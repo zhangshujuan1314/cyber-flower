@@ -1,7 +1,4 @@
 {
-  "navigationBarTitleText": "育种",
-  "usingComponents": {
-    "seed-card": "/components/seed-card/seed-card"
-  },
-  "enablePullDownRefresh": true
+  "navigationStyle": "custom",
+  "usingComponents": {}
 }

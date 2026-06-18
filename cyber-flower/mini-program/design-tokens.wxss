@@ -1,0 +1,168 @@
+/* design-tokens.wxss
+   Source: 育种页截图视觉提取
+   Scale: 约 390px 逻辑宽移动端视口
+*/
+
+:root,
+page {
+  /* Color: page and surface */
+  --color-bg-page: #F8F2DF;
+  --color-bg-page-warm: #FEFAEF;
+  --color-bg-page-deep: #EDE5CB;
+  --color-bg-foliage: #56632C;
+
+  --color-surface-card: #FBF5E3;
+  --color-surface-card-strong: #FFF9ED;
+  --color-surface-glass: rgba(255, 249, 230, 0.72);
+  --color-surface-glass-strong: rgba(255, 250, 237, 0.86);
+  --color-surface-input: rgba(255, 251, 240, 0.72);
+  --color-surface-pill: rgba(255, 249, 236, 0.76);
+  --color-surface-nav: rgba(255, 250, 239, 0.92);
+
+  --color-border-glass: rgba(255, 255, 255, 0.72);
+  --color-border-soft: rgba(126, 121, 85, 0.12);
+  --color-border-card: rgba(255, 255, 255, 0.64);
+
+  /* Color: primary green */
+  --color-primary-900: #24380E;
+  --color-primary-800: #344D15;
+  --color-primary-700: #526A1E;
+  --color-primary-600: #607527;
+  --color-primary-500: #728533;
+  --color-primary-400: #899843;
+  --color-primary-300: #9BAA4E;
+  --color-primary-soft: #D8E6B1;
+  --color-primary-soft-bg: #EEF6D8;
+
+  /* Color: text */
+  --color-text-primary: #25340F;
+  --color-text-secondary: #756F58;
+  --color-text-tertiary: #9C967F;
+  --color-text-muted: #B2AA91;
+  --color-text-inverse: #FFF7D7;
+  --color-text-on-primary: #FFF5CF;
+
+  /* Color: accents */
+  --color-accent-gold: #F7CF5C;
+  --color-accent-gold-soft: #FFF1A6;
+  --color-accent-red: #FF4B55;
+  --color-accent-gift: #D94D46;
+  --color-accent-link: #5E7241;
+
+  /* Color: emotion chips */
+  --color-emotion-happy: #F7C95C;
+  --color-emotion-sad: #7DC4F6;
+  --color-emotion-calm: #D8B56C;
+  --color-emotion-excited: #FFAD3D;
+  --color-emotion-heart: #F78A8A;
+
+  /* Color: rarity labels */
+  --color-rarity-common-bg: #D8E9AD;
+  --color-rarity-common-text: #5D7B24;
+  --color-rarity-common-border: #EEF6D8;
+
+  --color-rarity-rare-bg: #E8D1EC;
+  --color-rarity-rare-text: #9A62B4;
+  --color-rarity-rare-border: #F3E5F5;
+
+  --color-rarity-uncommon-bg: #E7BE8A;
+  --color-rarity-uncommon-text: #8A5A22;
+  --color-rarity-uncommon-border: #F6E1C5;
+
+  --color-locked-bg: rgba(110, 64, 140, 0.30);
+  --color-locked-text: rgba(255, 255, 255, 0.94);
+
+  /* Radius */
+  --radius-card-xl: 24px;
+  --radius-card-lg: 22px;
+  --radius-card-md: 18px;
+  --radius-tile: 14px;
+  --radius-image: 14px;
+  --radius-input: 20px;
+  --radius-button: 24px;
+  --radius-pill: 999px;
+  --radius-icon-button: 18px;
+  --radius-nav: 28px;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-7: 16px;
+  --space-8: 20px;
+  --space-9: 24px;
+  --space-10: 28px;
+  --space-11: 32px;
+
+  --space-page-x: 16px;
+  --space-section-y: 16px;
+  --space-card-padding: 20px;
+  --space-card-padding-compact: 14px;
+  --space-card-gap: 12px;
+  --space-tile-gap: 10px;
+  --space-chip-gap: 8px;
+
+  /* Typography */
+  --font-family-base: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+
+  --font-size-page-title: 26px;
+  --font-size-hero-title: 23px;
+  --font-size-section-title: 18px;
+  --font-size-button: 18px;
+  --font-size-body: 15px;
+  --font-size-body-sm: 14px;
+  --font-size-caption: 13px;
+  --font-size-chip: 13px;
+  --font-size-label: 12px;
+  --font-size-nav: 12px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.18;
+  --line-height-normal: 1.45;
+  --line-height-loose: 1.65;
+
+  /* Size */
+  --size-icon-button: 36px;
+  --size-top-action: 36px;
+  --height-input: 96px;
+  --height-button: 42px;
+  --height-chip: 32px;
+  --height-bottom-nav: 66px;
+
+  /* Emotion chip: selected state
+     选中底: --color-primary-soft, 文字: --color-primary-800, 描边: --color-primary-400 */
+  --emotion-chip-selected-bg: var(--color-primary-soft);
+  --emotion-chip-selected-text: var(--color-primary-800);
+  --emotion-chip-selected-border: 1px solid var(--color-primary-400);
+
+  /* Effects
+     NOTE — --effect-glass-blur + backdrop-filter 仅用于大卡片（育种主玻璃卡等）。
+     种子列表 / 每日格子等重复小卡【禁用】backdrop-filter，
+     只用半透明底色 + 阴影，避免真机多卡叠加掉帧。 */
+  --effect-glass-blur: 22px;
+  --effect-glass-saturate: 1.08;
+  --shadow-card: 0 12px 30px rgba(52, 64, 28, 0.10);
+  --shadow-card-soft: 0 8px 20px rgba(52, 64, 28, 0.08);
+  --shadow-button: 0 8px 18px rgba(66, 84, 26, 0.30);
+  --shadow-button-inner: inset 0 1px 0 rgba(255, 255, 214, 0.65), inset 0 -6px 12px rgba(43, 68, 16, 0.20);
+  --shadow-input-inner: inset 0 1px 0 rgba(255, 255, 255, 0.66);
+
+  --gradient-primary-button: linear-gradient(180deg, #8CC855 0%, #5FA02E 42%, #3B7518 100%);
+  --gradient-primary-button-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.00) 42%);
+  --gradient-page-warm: linear-gradient(180deg, #FEFAEF 0%, #F8F2DF 46%, #EDE5CB 100%);
+  --gradient-glass-card: linear-gradient(180deg, rgba(255, 251, 237, 0.78) 0%, rgba(248, 240, 213, 0.62) 100%);
+
+  /* Animation */
+  --duration-fast: 180ms;
+  --duration-normal: 280ms;
+  --duration-slow: 380ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

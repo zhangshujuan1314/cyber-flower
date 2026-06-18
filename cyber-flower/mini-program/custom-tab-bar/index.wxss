@@ -1,0 +1,59 @@
+/**
+ * custom-tab-bar — 全局自定义底部导航栏
+ * 严格使用 design-tokens.wxss 变量
+ * 图标当前为 emoji 占位，后续替换为线性 SVG
+ */
+
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--height-bottom-nav);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--color-surface-nav);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--color-border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 200;
+  box-sizing: border-box;
+}
+
+.tab-bar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 50px;
+  padding-top: 4px;
+}
+
+.tab-bar__icon {
+  font-size: 22px;
+  line-height: 1;
+  filter: grayscale(1) opacity(0.45);
+  transition: filter var(--duration-fast) var(--ease-out);
+}
+
+.tab-bar__icon--active {
+  filter: none;
+}
+
+.tab-bar__label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-nav);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  line-height: 1;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.tab-bar__label--active {
+  color: var(--color-primary-500);
+  font-weight: var(--font-weight-semibold);
+}

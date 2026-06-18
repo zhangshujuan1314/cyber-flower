@@ -1,22 +1,465 @@
-.breed-page { background: var(--color-bg-primary); min-height: 100vh; }
-.breed-tabs { display: flex; padding: 24rpx 32rpx; gap: 12rpx; }
-.breed-tab { flex: 1; height: 64rpx; display: flex; align-items: center; justify-content: center; font-size: var(--text-body); color: var(--color-text-tertiary); background: var(--color-bg-white); border-radius: var(--radius-lg); }
-.breed-tab--active { background: var(--color-primary-500); color: #fff; font-weight: 600; }
-.breed-panel { padding: 24rpx 32rpx; }
-.breed-input-area { background: var(--color-bg-white); border-radius: var(--radius-xl); padding: 32rpx; box-shadow: var(--shadow-sm); }
-.breed-input { width: 100%; min-height: 120rpx; font-size: var(--text-body-lg); color: var(--color-text-primary); }
-.breed-moods { display: flex; flex-wrap: wrap; gap: 12rpx; margin-top: 24rpx; }
-.breed-mood { padding: 8rpx 20rpx; font-size: var(--text-body-sm); color: var(--color-text-secondary); background: var(--color-bg-primary); border-radius: var(--radius-full); }
-.breed-mood--active { background: var(--color-accent-100); color: var(--color-accent-700); }
-.breed-generate-btn { width: 100%; height: 88rpx; margin-top: 32rpx; background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-300)); color: #fff; font-size: var(--text-body); font-weight: 600; border-radius: var(--radius-lg); border: none; display: flex; align-items: center; justify-content: center; }
-.breed-generate-btn[disabled] { opacity: 0.5; }
-.breed-result { margin-top: 32rpx; }
-.daily-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24rpx; }
-.daily-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16rpx; }
-.daily-item { background: var(--color-bg-white); border-radius: var(--radius-lg); padding: 24rpx; display: flex; flex-direction: column; align-items: center; gap: 12rpx; }
-.daily-item--claimed { opacity: 0.5; }
-.daily-item__img { width: 120rpx; height: 120rpx; }
-.daily-item__name { font-size: var(--text-body-sm); color: var(--color-text-secondary); }
-.backpack-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24rpx; }
-.backpack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; }
-.backpack-empty { padding: 96rpx 32rpx; text-align: center; }
+/**
+ * 育种页 — 样式
+ * 严格使用 design-tokens.wxss 变量（已 @import 全局生效）
+ * 不写死颜色 / 圆角 / 间距 / 字号
+ *
+ * 性能规则：
+ *   - 大玻璃卡 (glass-card) → backdrop-filter 可用
+ *   - 小卡片 (section-card / daily-tile / seed-item) → 半透明底色 + 阴影，禁用 backdrop-filter
+ */
+
+/* ============================================
+   页面容器
+   ============================================ */
+
+.breed-page {
+  min-height: 100vh;
+  background: var(--gradient-page-warm);
+  padding-bottom: 70px; /* 为底部 tabBar 留空 */
+  box-sizing: border-box;
+}
+
+/* ============================================
+   自定义顶部栏
+   ============================================ */
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-surface-nav);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.top-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 var(--space-page-x);
+}
+
+.top-bar__back {
+  width: var(--size-icon-button);
+  height: var(--size-icon-button);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-icon-button);
+}
+
+.top-bar__back-icon {
+  font-size: 20px;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.top-bar__title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.top-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.top-bar__icon-btn {
+  position: relative;
+  width: var(--size-top-action);
+  height: var(--size-top-action);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-pill);
+  border-radius: var(--radius-icon-button);
+  border: 1px solid var(--color-border-soft);
+}
+
+.top-bar__icon-emoji {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* 消息红点 */
+.top-bar__badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent-red);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-surface-nav);
+}
+
+/* ============================================
+   主玻璃卡片（大卡 → backdrop-filter 可用）
+   ============================================ */
+
+.glass-card {
+  margin: var(--space-section-y) var(--space-page-x);
+  padding: var(--space-card-padding);
+  background: var(--gradient-glass-card);
+  backdrop-filter: blur(var(--effect-glass-blur)) saturate(var(--effect-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--effect-glass-blur)) saturate(var(--effect-glass-saturate));
+  border-radius: var(--radius-card-xl);
+  border: 1px solid var(--color-border-glass);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-card-gap);
+}
+
+.glass-card__hero {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-hero-title);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  line-height: var(--line-height-tight);
+}
+
+.glass-card__subtitle {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  line-height: var(--line-height-normal);
+  margin-top: -4px;
+}
+
+/* --- 多行输入框 --- */
+
+.glass-card__input-wrap {
+  position: relative;
+  background: var(--color-surface-input);
+  border-radius: var(--radius-input);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-input-inner);
+  padding: var(--space-6);
+}
+
+.glass-card__input {
+  width: 100%;
+  min-height: var(--height-input);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-loose);
+  box-sizing: border-box;
+}
+
+.glass-card__input-placeholder {
+  color: var(--color-text-muted);
+}
+
+.glass-card__counter {
+  position: absolute;
+  right: var(--space-6);
+  bottom: var(--space-4);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+}
+
+/* --- 情绪选择 --- */
+
+.glass-card__emotion-label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.emotion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-chip-gap);
+}
+
+.emotion-chip {
+  height: var(--height-chip);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 var(--space-8);
+  background: var(--color-surface-pill);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.emotion-chip__emoji {
+  font-size: var(--font-size-chip);
+  line-height: 1;
+}
+
+.emotion-chip__label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-chip);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  line-height: 1;
+}
+
+/* 选中态 — 用 design-tokens 里新加的 emotion-chip-selected-* */
+.emotion-chip--selected {
+  background: var(--emotion-chip-selected-bg);
+  border: var(--emotion-chip-selected-border);
+}
+
+.emotion-chip--selected .emotion-chip__label {
+  color: var(--emotion-chip-selected-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* --- 生成按钮：渐变 + 光泽 + 内阴影 --- */
+
+.generate-btn {
+  position: relative;
+  width: 100%;
+  height: var(--height-button);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-primary-button);
+  border-radius: var(--radius-button);
+  box-shadow: var(--shadow-button), var(--shadow-button-inner);
+  overflow: hidden;
+}
+
+/* 光泽层 */
+.generate-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: var(--gradient-primary-button-gloss);
+  border-radius: var(--radius-button) var(--radius-button) 0 0;
+  pointer-events: none;
+}
+
+.generate-btn__text {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-on-primary);
+  line-height: 1;
+}
+
+/* 按下态 */
+.generate-btn:active {
+  opacity: 0.92;
+  transform: scale(0.98);
+}
+
+/* ============================================
+   通用小卡片（禁用 backdrop-filter）
+   今日种子 / 我的种子 共用结构
+   ============================================ */
+
+.section-card {
+  margin: 0 var(--space-page-x) var(--space-section-y);
+  padding: var(--space-card-padding);
+  background: var(--color-surface-card-strong);
+  border-radius: var(--radius-card-lg);
+  border: 1px solid var(--color-border-card);
+  box-shadow: var(--shadow-card-soft);
+  /* 小卡禁用 backdrop-filter，只用半透明底色 + 阴影 */
+}
+
+.section-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-7);
+}
+
+.section-card__title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-section-title);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.section-card__hint {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+}
+
+/* ============================================
+   每日种子：3 列网格
+   ============================================ */
+
+.daily-grid {
+  display: flex;
+  gap: var(--space-tile-gap);
+}
+
+.daily-tile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface-card);
+  border-radius: var(--radius-tile);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.daily-tile--locked {
+  opacity: 0.7;
+}
+
+.daily-tile__img {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-image);
+}
+
+.daily-tile__name {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.daily-tile__rarity {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  padding: 1px var(--space-4);
+  border-radius: var(--radius-pill);
+  line-height: 1.4;
+}
+
+.daily-tile__rarity--common {
+  background: var(--color-rarity-common-bg);
+  color: var(--color-rarity-common-text);
+}
+
+.daily-tile__rarity--rare {
+  background: var(--color-rarity-rare-bg);
+  color: var(--color-rarity-rare-text);
+}
+
+.daily-tile__lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-locked-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-tile);
+}
+
+.daily-tile__lock-hint {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-chip);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-locked-text);
+}
+
+/* ============================================
+   我的种子：横向滚动列表
+   ============================================ */
+
+.seed-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.seed-scroll__inner {
+  display: inline-flex;
+  gap: var(--space-card-gap);
+}
+
+.seed-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100px;
+  background: var(--color-surface-card);
+  border-radius: var(--radius-card-md);
+  padding: var(--space-5) var(--space-4);
+  box-shadow: var(--shadow-card-soft);
+  border: 1px solid var(--color-border-soft);
+  white-space: normal;
+}
+
+.seed-item__img {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-image);
+}
+
+.seed-item__name {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+.seed-item__rarity {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  padding: 1px var(--space-3);
+  border-radius: var(--radius-pill);
+  line-height: 1.4;
+}
+
+.seed-item__rarity--common {
+  background: var(--color-rarity-common-bg);
+  color: var(--color-rarity-common-text);
+}
+
+.seed-item__rarity--rare {
+  background: var(--color-rarity-rare-bg);
+  color: var(--color-rarity-rare-text);
+}
+
+.seed-item__level {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-tight);
+}
+
+.seed-item__progress {
+  width: 100%;
+  height: 3px;
+  background: var(--color-border-soft);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.seed-item__progress-fill {
+  height: 100%;
+  background: var(--color-primary-500);
+  border-radius: var(--radius-pill);
+}

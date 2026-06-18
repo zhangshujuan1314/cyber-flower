@@ -1,10 +1,13 @@
+@import './design-tokens.wxss';
+
 /**
  * 赛博养花 — 全局样式
- * 设计令牌系统 + 基础重置 + 工具类
+ * 基础重置 + 工具类
+ * 设计令牌见 design-tokens.wxss（已 @import 全局生效）
  */
 
 /* ============================================
-   设计令牌 (CSS Variables)
+   补充令牌 (CSS Variables) — 与 design-tokens.wxss 互补，不冲突
    ============================================ */
 
 page {

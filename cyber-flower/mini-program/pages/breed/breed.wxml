@@ -1,96 +1,120 @@
-<!-- 育种页 -->
-<view class="breed-page page-container">
+<!--
+  育种页 — 按设计稿精确还原
+  严格使用 design-tokens.wxss 变量，不写死颜色/圆角/间距
+  当前为静态 UI + 假数据阶段
+-->
+<view class="breed-page">
 
-  <!-- Tab切换 -->
-  <view class="breed-tabs">
-    <view class="breed-tab {{activeTab === 'generate' ? 'breed-tab--active' : ''}}" data-tab="generate" bind:tap="switchTab">
-      ✨ AI生成
-    </view>
-    <view class="breed-tab {{activeTab === 'daily' ? 'breed-tab--active' : ''}}" data-tab="daily" bind:tap="switchTab">
-      🎁 每日种子
-    </view>
-    <view class="breed-tab {{activeTab === 'backpack' ? 'breed-tab--active' : ''}}" data-tab="backpack" bind:tap="switchTab">
-      🎒 我的种子
+  <!-- ============================================
+       自定义顶部栏：返回 + 标题 + AI + 消息
+       ============================================ -->
+  <view class="top-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="top-bar__inner">
+      <view class="top-bar__back" bind:tap="handleBack">
+        <text class="top-bar__back-icon">←</text>
+      </view>
+      <text class="top-bar__title">育种</text>
+      <view class="top-bar__actions">
+        <view class="top-bar__icon-btn" bind:tap="handleAI">
+          <text class="top-bar__icon-emoji">🤖</text>
+        </view>
+        <view class="top-bar__icon-btn top-bar__icon-btn--badge" bind:tap="handleMessages">
+          <text class="top-bar__icon-emoji">💬</text>
+          <view class="top-bar__badge"></view>
+        </view>
+      </view>
     </view>
   </view>
 
-  <!-- AI生成面板 -->
-  <view class="breed-panel" wx:if="{{activeTab === 'generate'}}">
-    <view class="breed-input-area">
+  <!-- ============================================
+       主玻璃卡片（大卡，用 backdrop-filter）
+       ============================================ -->
+  <view class="glass-card">
+    <text class="glass-card__hero">✨ 输入关键词生成种子 ✨</text>
+    <text class="glass-card__subtitle">用 AI 的灵感，孕育独一无二的花</text>
+
+    <!-- 多行输入框 -->
+    <view class="glass-card__input-wrap">
       <textarea
-        class="breed-input"
-        placeholder="描述你心中的花... 如: 雨后彩虹般绚烂的花朵"
+        class="glass-card__input"
+        placeholder="描述你心中的花..."
+        placeholder-class="glass-card__input-placeholder"
         value="{{keyword}}"
         bindinput="onKeywordInput"
         maxlength="50"
         auto-height
       />
-      <view class="breed-moods">
-        <text
-          wx:for="{{moods}}"
-          wx:key="index"
-          class="breed-mood {{selectedMood === item ? 'breed-mood--active' : ''}}"
-          data-mood="{{item}}"
-          bind:tap="selectMood"
-        >{{item}}</text>
-      </view>
-      <button
-        class="breed-generate-btn"
-        bind:tap="generateSeed"
-        disabled="{{isGenerating || !keyword}}"
-        loading="{{isGenerating}}"
-      >
-        {{isGenerating ? 'AI正在孕育种子...' : '✨ 生成种子'}}
-      </button>
+      <text class="glass-card__counter">{{keywordLength}}/50</text>
     </view>
 
-    <!-- 生成结果 -->
-    <view class="breed-result" wx:if="{{generatedSeed}}">
-      <view class="breed-result-card">
-        <seed-card seed="{{generatedSeed}}" showPlant="{{true}}" bind:plant="plantSeed" />
+    <!-- 情绪选择 -->
+    <text class="glass-card__emotion-label">选择你希望赋予它的情绪</text>
+    <view class="emotion-chips">
+      <view
+        wx:for="{{emotions}}"
+        wx:key="id"
+        class="emotion-chip {{selectedEmotion === item.id ? 'emotion-chip--selected' : ''}}"
+        data-id="{{item.id}}"
+        bind:tap="selectEmotion"
+      >
+        <text class="emotion-chip__emoji">{{item.emoji}}</text>
+        <text class="emotion-chip__label">{{item.label}}</text>
       </view>
+    </view>
+
+    <!-- 生成按钮：渐变 + 光泽 + 内阴影 -->
+    <view class="generate-btn" bind:tap="handleGenerate">
+      <text class="generate-btn__text">✨ 生成</text>
     </view>
   </view>
 
-  <!-- 每日种子面板 -->
-  <view class="breed-panel" wx:if="{{activeTab === 'daily'}}">
-    <view class="daily-header">
-      <text class="text-h3 text-serif">今日种子</text>
-      <text class="text-caption text-tertiary">{{dailyClaimed ? '今日已领取' : '每天可领取1颗'}}</text>
+  <!-- ============================================
+       "今日免费种子" 卡片（小卡，NO backdrop-filter）
+       ============================================ -->
+  <view class="section-card">
+    <view class="section-card__header">
+      <text class="section-card__title">🎁 今日免费种子</text>
+      <text class="section-card__hint">每日1次 ⓘ</text>
     </view>
     <view class="daily-grid">
       <view
         wx:for="{{dailySeeds}}"
         wx:key="index"
-        class="daily-item {{dailyClaimed ? 'daily-item--claimed' : ''}}"
-        data-index="{{index}}"
-        bind:tap="claimDailySeed"
+        class="daily-tile {{item.locked ? 'daily-tile--locked' : ''}}"
       >
-        <image class="daily-item__img" src="{{item.previewImage || '/assets/images/seed-mystery.png'}}" mode="aspectFit" />
-        <text class="daily-item__name">{{dailyClaimed ? '已领取' : item.name}}</text>
+        <view class="daily-tile__img" style="background: {{item.color}};"></view>
+        <text class="daily-tile__name">{{item.name}}</text>
+        <text class="daily-tile__rarity daily-tile__rarity--{{item.rarity}}">{{item.rarityText}}</text>
+        <view class="daily-tile__lock-overlay" wx:if="{{item.locked}}">
+          <text class="daily-tile__lock-hint">分享解锁</text>
+        </view>
       </view>
     </view>
   </view>
 
-  <!-- 种子背包 -->
-  <view class="breed-panel" wx:if="{{activeTab === 'backpack'}}">
-    <view class="backpack-header">
-      <text class="text-h3 text-serif">我的种子</text>
-      <text class="text-caption text-tertiary">共 {{mySeeds.length}} 颗</text>
+  <!-- ============================================
+       "我的种子" 卡片（小卡，NO backdrop-filter）
+       ============================================ -->
+  <view class="section-card">
+    <view class="section-card__header">
+      <text class="section-card__title">我的种子({{mySeedsCount}})</text>
+      <text class="section-card__hint">稀有度 ▾</text>
     </view>
-    <view class="backpack-grid" wx:if="{{mySeeds.length > 0}}">
-      <seed-card
-        wx:for="{{mySeeds}}"
-        wx:key="_id"
-        seed="{{item}}"
-        showPlant="{{item.status === 'idle'}}"
-        bind:plant="plantSeed"
-        data-seed-id="{{item._id}}"
-      />
-    </view>
-    <view class="backpack-empty" wx:else>
-      <text class="text-body text-tertiary">还没有种子，去AI生成或领取每日种子吧~</text>
-    </view>
+    <scroll-view class="seed-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="seed-scroll__inner">
+        <view class="seed-item" wx:for="{{mySeeds}}" wx:key="id">
+          <view class="seed-item__img" style="background: {{item.color}};"></view>
+          <text class="seed-item__name">{{item.name}}</text>
+          <view class="seed-item__rarity seed-item__rarity--{{item.rarity}}">
+            <text>{{item.rarityText}}</text>
+          </view>
+          <text class="seed-item__level">Lv.{{item.level}}</text>
+          <view class="seed-item__progress">
+            <view class="seed-item__progress-fill" style="width: {{item.progress}}%;"></view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
   </view>
 
 </view>
