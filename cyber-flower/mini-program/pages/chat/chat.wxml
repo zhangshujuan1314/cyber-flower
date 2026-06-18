@@ -1,0 +1,44 @@
+<!-- AI对话页 -->
+<view class="chat-page page-container--no-tab">
+  <!-- 迷你花视图 -->
+  <view class="chat-flower-mini" wx:if="{{flowerImage}}">
+    <image class="chat-flower-img" src="{{flowerImage}}" mode="aspectFit" />
+    <text class="chat-flower-name text-caption text-serif">{{flowerName}}</text>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view class="chat-messages" scroll-y scroll-into-view="{{scrollToView}}" enhanced show-scrollbar="{{false}}">
+    <view class="chat-empty" wx:if="{{messages.length === 0}}">
+      <text class="text-body text-tertiary">和{{flowerName}}说点什么吧~</text>
+    </view>
+    <view
+      wx:for="{{messages}}"
+      wx:key="id"
+      id="msg-{{item.id}}"
+      class="chat-msg {{item.role === 'user' ? 'chat-msg--user' : 'chat-msg--flower'}}"
+    >
+      <chat-bubble
+        message="{{item.text}}"
+        flowerName="{{flowerName}}"
+        isUser="{{item.role === 'user'}}"
+        emotion="{{item.emotion}}"
+      />
+    </view>
+  </scroll-view>
+
+  <!-- 输入栏 -->
+  <view class="chat-input-bar safe-area-bottom">
+    <input
+      class="chat-input"
+      value="{{inputText}}"
+      placeholder="想对{{flowerName}}说..."
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="sendMessage"
+      adjust-position="{{true}}"
+    />
+    <button class="chat-send-btn" bind:tap="sendMessage" disabled="{{isSending || !inputText}}">
+      发送
+    </button>
+  </view>
+</view>

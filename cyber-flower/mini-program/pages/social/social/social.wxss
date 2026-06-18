@@ -1,0 +1,11 @@
+.social-page { background: var(--color-bg-primary); }
+.social-gifts { padding: 24rpx 32rpx; }
+.gift-notification { display: flex; align-items: center; justify-content: space-between; padding: 24rpx; background: linear-gradient(135deg, #FFF8E1, #FFECB3); border-radius: var(--radius-lg); margin-bottom: 12rpx; font-size: var(--text-body-sm); }
+.gift-accept-btn { width: 120rpx; height: 56rpx; background: var(--color-secondary-500); color: #fff; font-size: var(--text-body-sm); border-radius: var(--radius-md); border: none; display: flex; align-items: center; justify-content: center; }
+.social-section { padding-top: 24rpx; }
+.friend-card { display: flex; align-items: center; padding: 24rpx 32rpx; background: var(--color-bg-white); margin: 8rpx 0; }
+.friend-avatar { width: 80rpx; height: 80rpx; border-radius: 50%; background: var(--color-bg-primary); }
+.friend-info { flex: 1; margin-left: 20rpx; }
+.friend-name { font-size: var(--text-body); color: var(--color-text-primary); font-weight: 500; }
+.friend-stats { font-size: var(--text-caption); color: var(--color-text-tertiary); margin-top: 4rpx; }
+.friend-arrow { font-size: 24rpx; color: var(--color-text-tertiary); }

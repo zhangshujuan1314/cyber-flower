@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/garden/garden",
+    "pages/breed/breed",
+    "pages/collection/collection",
+    "pages/social/social",
+    "pages/profile/profile"
+  ],
+  "subPackages": [
+    {
+      "root": "sub-pkg",
+      "pages": [
+        "chat/chat",
+        "friend-garden/friend-garden",
+        "memorial/memorial",
+        "privacy/privacy"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/garden/garden": {
+      "network": "all",
+      "packages": ["sub-pkg"]
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "赛博养花",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F0EB"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#6B6B7B",
+    "selectedColor": "#2D5A3D",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/garden/garden", "text": "花园", "iconPath": "assets/icons/tab-garden.png", "selectedIconPath": "assets/icons/tab-garden-active.png" },
+      { "pagePath": "pages/breed/breed", "text": "育种", "iconPath": "assets/icons/tab-breed.png", "selectedIconPath": "assets/icons/tab-breed-active.png" },
+      { "pagePath": "pages/collection/collection", "text": "图鉴", "iconPath": "assets/icons/tab-collection.png", "selectedIconPath": "assets/icons/tab-collection-active.png" },
+      { "pagePath": "pages/social/social", "text": "社交", "iconPath": "assets/icons/tab-social.png", "selectedIconPath": "assets/icons/tab-social-active.png" },
+      { "pagePath": "pages/profile/profile", "text": "我的", "iconPath": "assets/icons/tab-profile.png", "selectedIconPath": "assets/icons/tab-profile-active.png" }
+    ]
+  },
+  "networkTimeout": {
+    "request": 30000, "connectSocket": 30000,
+    "uploadFile": 60000, "downloadFile": 60000
+  },
+  "permission": {
+    "scope.userLocation": { "desc": "用于根据你所在地推荐适宜的季节性花种" }
+  },
+  "requiredPrivateInfos": [],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,26 @@
+<!-- 社交页 -->
+<view class="social-page page-container">
+  <!-- 礼物通知 -->
+  <view class="social-gifts" wx:if="{{giftNotifications.length > 0}}">
+    <view wx:for="{{giftNotifications}}" wx:key="_id" class="gift-notification">
+      <text>{{item.senderName}} 送了你一颗 {{item.seedName}} 🎁</text>
+      <button class="gift-accept-btn" data-gift-id="{{item._id}}" bind:tap="acceptGift">领取</button>
+    </view>
+  </view>
+
+  <!-- 好友列表 -->
+  <view class="social-section">
+    <text class="text-h3 text-serif" style="padding: 0 32rpx;">好友花园</text>
+    <view wx:if="{{friends.length > 0}}">
+      <view wx:for="{{friends}}" wx:key="_id" class="friend-card" data-user-id="{{item._id}}" bind:tap="visitGarden">
+        <image class="friend-avatar" src="{{item.avatar}}" mode="aspectFill" />
+        <view class="friend-info">
+          <text class="friend-name">{{item.nickname}}</text>
+          <text class="friend-stats">{{item.flowerCount}}朵花 · {{item.gardenLevel}}级花园</text>
+        </view>
+        <text class="friend-arrow">→</text>
+      </view>
+    </view>
+    <view wx:else class="text-center p-xl"><text class="text-body text-tertiary">还没有好友，去微信分享邀请朋友吧~</text></view>
+  </view>
+</view>

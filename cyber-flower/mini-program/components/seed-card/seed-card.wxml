@@ -1,0 +1,11 @@
+<view class="seed-card" wx:if="{{seed}}">
+  <image class="seed-card__img" src="{{displayImage || seed.previewImage}}" mode="aspectFill" bind:tap="onPreview" />
+  <view class="seed-card__info">
+    <text class="seed-card__name text-h4 text-serif">{{seed.name}}</text>
+    <view class="seed-card__tags">
+      <text class="seed-tag seed-tag--{{seed.rarity}}">{{seed.rarityText || seed.rarity}}</text>
+      <text class="seed-tag" wx:if="{{seed.season}}">{{seed.season}}</text>
+    </view>
+  </view>
+  <button wx:if="{{showPlant && seed.status === 'idle'}}" class="seed-card__plant" bind:tap="onPlant">🌱 种植</button>
+</view>

@@ -1,0 +1,11 @@
+.memorial-page { background: linear-gradient(180deg, #F5F0EB, #E8E0D8); min-height: 100vh; }
+.memorial-header { padding: 48rpx 32rpx 32rpx; text-align: center; }
+.memorial-card { position: relative; margin: 16rpx 32rpx; border-radius: var(--radius-xl); overflow: hidden; height: 240rpx; }
+.memorial-card__img { width: 100%; height: 100%; filter: brightness(0.7) sepia(0.3); }
+.memorial-card__overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 32rpx; background: linear-gradient(transparent, rgba(0,0,0,0.5)); }
+.memorial-card__name { font-size: var(--text-h2); color: #fff; }
+.memorial-card__lifespan { font-size: var(--text-body-sm); color: rgba(255,255,255,0.8); display: block; margin-top: 4rpx; }
+.memorial-card__date { font-size: var(--text-caption); color: rgba(255,255,255,0.6); position: absolute; right: 32rpx; bottom: 32rpx; }
+.memorial-card__glow { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at center, rgba(255,215,0,0.1), transparent 70%); pointer-events: none; }
+.memorial-empty { display: flex; flex-direction: column; align-items: center; padding: 160rpx 48rpx; gap: 16rpx; text-align: center; }
+.memorial-empty__icon { font-size: 96rpx; opacity: 0.6; }

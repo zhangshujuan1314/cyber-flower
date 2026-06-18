@@ -1,0 +1,10 @@
+.seed-card { background: #fff; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-md); }
+.seed-card__img { width: 100%; height: 240rpx; background: linear-gradient(135deg, #F5F0EB, #FDE0E8); }
+.seed-card__info { padding: 20rpx 24rpx; }
+.seed-card__name { color: var(--color-text-primary); margin-bottom: 8rpx; }
+.seed-card__tags { display: flex; gap: 8rpx; }
+.seed-tag { padding: 4rpx 12rpx; border-radius: var(--radius-full); font-size: var(--text-caption); background: #E8F5E9; color: #2E7D32; }
+.seed-tag--rare { background: #EDE7F6; color: #7C4DFF; }
+.seed-tag--epic { background: #FFF3E0; color: #FF6D00; }
+.seed-tag--legendary { background: #FCE4EC; color: #C71585; }
+.seed-card__plant { width: calc(100% - 48rpx); height: 72rpx; margin: 0 24rpx 20rpx; background: var(--color-primary-500); color: #fff; font-size: var(--text-body); border-radius: var(--radius-md); border: none; display: flex; align-items: center; justify-content: center; }

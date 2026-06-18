@@ -1,0 +1,9 @@
+<view class="privacy-page page-container">
+  <text class="text-h2 text-serif">隐私政策</text>
+  <view class="privacy-section"><text class="text-h4">信息收集</text><text class="text-body">我们仅收集您的微信头像和昵称用于花园展示。AI对话内容仅用于生成回复，不会被用于其他用途。</text></view>
+  <view class="privacy-section"><text class="text-h4">信息使用</text><text class="text-body">您的数据仅用于提供赛博养花服务：花朵养成记录、AI对话优化、好友互动。</text></view>
+  <view class="privacy-section"><text class="text-h4">信息安全</text><text class="text-body">所有数据传输采用HTTPS加密，服务器部署在腾讯云，采用行业标准安全措施。</text></view>
+  <view class="privacy-section"><text class="text-h4">您的权利</text><text class="text-body">您可以随时在"我的-设置"中导出或删除您的所有数据。删除后数据不可恢复。</text></view>
+  <view class="privacy-section"><text class="text-h4">联系我们</text><text class="text-body">如有任何隐私相关问题，请通过小程序内的"帮助与反馈"联系我们。</text></view>
+  <text class="text-caption text-tertiary" style="margin-top:48rpx;">最后更新: 2026年6月</text>
+</view>
