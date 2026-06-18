@@ -3,6 +3,7 @@
  * 使用FlowerRenderer引擎实现真实感分层渲染
  */
 import { FlowerRenderer, RenderLayer } from '../../utils/flower-renderer';
+import { getFlowerImage } from '../../utils/flowerImage';
 
 const STAGE_LAYER_CONFIG: Record<string, Record<string, number>> = {
   seed:       { shadow:0.2, pot:1, stem:0, leaves:0, calyx:0, petals:0, center:0 },
@@ -17,7 +18,7 @@ const STAGE_LAYER_CONFIG: Record<string, Record<string, number>> = {
 Component({
   properties: {
     flower: { type: Object, value: null, observer: 'onFlowerChange' },
-    careAnimating: { type: String, value: '', observer: 'onCareAnimatingChange' },
+    careAnimating: { type: String, value: '', observer: 'onCareAnimatingChange', optionalTypes: [null] },
     size: { type: Number, value: 500 },
   },
 
@@ -71,7 +72,11 @@ Component({
       if (!this.renderer || typeof this.renderer.updateLayers !== 'function') return;
       const stage = (flower.stage as string) || 'seed';
       const config = STAGE_LAYER_CONFIG[stage] || STAGE_LAYER_CONFIG.seed;
-      const baseImg = (flower.visualState as Record<string, string>)?.currentImage || '';
+      // 用花名哈希取本地素材（不再读 currentImage 里的死 COS 链接）
+      const species = (flower.genome as Record<string, unknown>)?.species as string
+        || (flower.name as string)
+        || 'flower';
+      const baseImg = getFlowerImage(species);
 
       const layers: RenderLayer[] = [
         { image: `${baseImg}_shadow`, opacity: config.shadow, targetOpacity: config.shadow, scale: 1, rotation: 0, zIndex: 1, offsetY: 0, key: 'shadow' },
