@@ -296,25 +296,29 @@ export class FlowerRenderer {
         ctx.ellipse(18, -70, 30, 12, 0.3, 0, Math.PI * 2);
         ctx.fill();
         break;
-      case 'petals':
+      case 'petals': {
         ctx.fillStyle = colors.petals;
-        // 多层花瓣
+        const cx = 0, cy = -160;                         // 花心移到茎顶
+        const petalLen = 26, petalWid = 12, ringR = 18;  // 花瓣沿半径外移
         for (let i = 0; i < 8; i++) {
           const angle = (i / 8) * Math.PI * 2;
           ctx.save();
+          ctx.translate(cx, cy);                          // 先移到花心
           ctx.rotate(angle);
           ctx.beginPath();
-          ctx.ellipse(0, -40, 18, 35, 0, 0, Math.PI * 2);
+          ctx.ellipse(0, -ringR, petalWid, petalLen, 0, 0, Math.PI * 2);
           ctx.fill();
           ctx.restore();
         }
         break;
-      case 'center':
+      }
+      case 'center': {
         ctx.fillStyle = colors.center;
         ctx.beginPath();
-        ctx.arc(0, 0, 16, 0, Math.PI * 2);
+        ctx.arc(0, -160, 10, 0, Math.PI * 2);            // 花蕊也移到茎顶
         ctx.fill();
         break;
+      }
     }
   }
 }

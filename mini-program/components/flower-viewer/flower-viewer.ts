@@ -71,7 +71,6 @@ Component({
     updateFlowerLayers(flower: Record<string, unknown>) {
       if (!this.renderer || typeof this.renderer.updateLayers !== 'function') return;
       const rawStage = flower.stage;
-      console.log('[flower-viewer] raw stage =', rawStage, '| type =', typeof rawStage);
       const stage = (typeof rawStage === 'string' ? rawStage.trim().toLowerCase() : '') || 'seed';
       const config = STAGE_LAYER_CONFIG[stage] || STAGE_LAYER_CONFIG.seed;
       // 用花名哈希取本地素材（不再读 currentImage 里的死 COS 链接）
