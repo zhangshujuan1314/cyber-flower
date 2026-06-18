@@ -82,7 +82,14 @@
         wx:key="index"
         class="daily-tile {{item.locked ? 'daily-tile--locked' : ''}}"
       >
-        <view class="daily-tile__img" style="background: {{item.color}};"></view>
+        <image
+          wx:if="{{!item.locked && item.image}}"
+          src="{{item.image}}"
+          mode="aspectFill"
+          class="daily-tile__img"
+          style="background: {{item.color}};"
+        />
+        <view wx:else class="daily-tile__img" style="background: {{item.color}};"></view>
         <text class="daily-tile__name">{{item.name}}</text>
         <text class="daily-tile__rarity daily-tile__rarity--{{item.rarity}}">{{item.rarityText}}</text>
         <view class="daily-tile__lock-overlay" wx:if="{{item.locked}}">
@@ -103,7 +110,12 @@
     <scroll-view class="seed-scroll" scroll-x enhanced show-scrollbar="{{false}}">
       <view class="seed-scroll__inner">
         <view class="seed-item" wx:for="{{mySeeds}}" wx:key="id">
-          <view class="seed-item__img" style="background: {{item.color}};"></view>
+          <image
+            src="{{item.image}}"
+            mode="aspectFill"
+            class="seed-item__img"
+            style="background: {{item.color}};"
+          />
           <text class="seed-item__name">{{item.name}}</text>
           <view class="seed-item__rarity seed-item__rarity--{{item.rarity}}">
             <text>{{item.rarityText}}</text>

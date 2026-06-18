@@ -15,6 +15,7 @@ interface DailySeed {
   rarityText: string;
   color: string;
   locked: boolean;
+  image?: string;
 }
 
 interface MySeed {
@@ -25,6 +26,7 @@ interface MySeed {
   level: number;
   progress: number;
   color: string;
+  image: string;
 }
 
 Page({
@@ -48,17 +50,17 @@ Page({
 
     /* 每日种子（假数据） */
     dailySeeds: [
-      { name: '野菊', rarity: 'common' as const, rarityText: '普通', color: '#F5D742', locked: false },
-      { name: '薄荷', rarity: 'common' as const, rarityText: '普通', color: '#7EC8A0', locked: false },
+      { name: '野菊', rarity: 'common' as const, rarityText: '普通', color: '#F5D742', locked: false, image: '/assets/flowers/5.jpg' },
+      { name: '薄荷', rarity: 'common' as const, rarityText: '普通', color: '#7EC8A0', locked: false, image: '/assets/flowers/6.jpg' },
       { name: '???', rarity: 'rare' as const, rarityText: '稀有', color: '#B8B8B8', locked: true },
     ] as DailySeed[],
 
     /* 我的种子（假数据） */
     mySeeds: [
-      { id: '1', name: '野菊', rarity: 'common' as const, rarityText: '普通', level: 3, progress: 60, color: '#F5D742' },
-      { id: '2', name: '薄荷', rarity: 'common' as const, rarityText: '普通', level: 1, progress: 20, color: '#7EC8A0' },
-      { id: '3', name: '星辰花', rarity: 'rare' as const, rarityText: '稀有', level: 5, progress: 80, color: '#C4A0F5' },
-      { id: '4', name: '野玫瑰', rarity: 'common' as const, rarityText: '普通', level: 2, progress: 40, color: '#F08080' },
+      { id: '1', name: '野菊',   rarity: 'common' as const, rarityText: '普通', level: 3, progress: 60, color: '#F5D742', image: '/assets/flowers/5.jpg' },
+      { id: '2', name: '薄荷',   rarity: 'common' as const, rarityText: '普通', level: 1, progress: 20, color: '#7EC8A0', image: '/assets/flowers/6.jpg' },
+      { id: '3', name: '星辰花', rarity: 'rare' as const,   rarityText: '稀有', level: 5, progress: 80, color: '#C4A0F5', image: '/assets/flowers/10.jpg' },
+      { id: '4', name: '野玫瑰', rarity: 'common' as const, rarityText: '普通', level: 2, progress: 40, color: '#F08080', image: '/assets/flowers/2.jpg' },
     ] as MySeed[],
     mySeedsCount: 4,
   },
