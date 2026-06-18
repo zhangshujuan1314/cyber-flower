@@ -1,0 +1,28 @@
+<view class="friend-garden-page page-container">
+  <view wx:if="{{isLoading}}" class="text-center p-xl"><text class="text-body text-tertiary">加载花园中...</text></view>
+
+  <view wx:elif="{{flowers.length === 0}}" class="text-center p-xl">
+    <text class="memorial-empty__icon">🌱</text>
+    <text class="text-body text-tertiary">这个花园还是空的</text>
+  </view>
+
+  <view wx:else>
+    <view wx:for="{{flowers}}" wx:key="_id" class="friend-flower-card">
+      <flower-viewer flower="{{item}}" size="{{300}}" />
+      <view class="friend-flower-info">
+        <text class="text-h4 text-serif">{{item.name}}</text>
+        <text class="text-caption text-tertiary">{{item.stage === 'blooming' ? '🌸 盛开中' : '🌿 生长中'}}</text>
+      </view>
+    </view>
+
+    <view class="friend-actions">
+      <button class="action-btn action-btn--like {{liked ? 'liked' : ''}}" bind:tap="handleLike">
+        {{liked ? '💚 已点赞' : '🤍 点赞花园'}}
+      </button>
+      <view class="comment-bar">
+        <input class="comment-input" placeholder="留下温暖的话..." value="{{comment}}" bindinput="onCommentInput" />
+        <button class="comment-send" bind:tap="handleComment">发送</button>
+      </view>
+    </view>
+  </view>
+</view>

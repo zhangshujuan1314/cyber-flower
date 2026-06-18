@@ -1,0 +1,43 @@
+/**
+ * custom-tab-bar — 全局自定义底部导航栏
+ * 使用 design-tokens 变量 + emoji 图标
+ */
+
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: 110rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--color-surface-nav, rgba(255, 255, 255, 0.92));
+  backdrop-filter: blur(12px);
+  box-shadow: 0 -2rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+.tab-bar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+}
+.tab-bar__icon {
+  font-size: 40rpx;
+  line-height: 1;
+  filter: grayscale(1) opacity(0.55);
+  transition: filter var(--duration-fast, 0.15s) var(--ease-out, ease);
+}
+.tab-bar__text {
+  font-size: 22rpx;
+  color: var(--color-text-muted, #6B6B7B);
+  transition: color var(--duration-fast, 0.15s) var(--ease-out, ease);
+}
+.tab-bar__item--active .tab-bar__icon {
+  filter: none;
+}
+.tab-bar__item--active .tab-bar__text {
+  color: var(--color-primary-500, #728533);
+  font-weight: 600;
+}

@@ -1,0 +1,11 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "flower-viewer": "/components/flower-viewer/flower-viewer",
+    "care-panel": "/components/care-panel/care-panel",
+    "season-indicator": "/components/season-indicator/season-indicator",
+    "chat-bubble": "/components/chat-bubble/chat-bubble"
+  },
+  "enablePullDownRefresh": false,
+  "disableScroll": false
+}

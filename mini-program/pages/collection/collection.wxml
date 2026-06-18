@@ -1,0 +1,19 @@
+<!-- 图鉴页 -->
+<view class="collection-page page-container">
+  <view class="collection-header">
+    <text class="text-h2 text-serif">花朵图鉴</text>
+    <text class="text-body text-tertiary">{{collectedCount}} / {{totalCount}}</text>
+  </view>
+  <view class="collection-progress"><view class="collection-progress__bar" style="width: {{collectedCount / totalCount * 100}}%"></view></view>
+  <scroll-view class="collection-filters" scroll-x>
+    <text wx:for="{{filterOptions}}" wx:key="index" class="filter-tag {{activeFilter === item ? 'filter-tag--active' : ''}}" data-filter="{{item}}" bind:tap="filterBy">{{item === 'all' ? '全部' : item === 'spring' ? '🌸 春' : item === 'summer' ? '☀️ 夏' : item === 'autumn' ? '🍂 秋' : '❄️ 冬'}}</text>
+  </scroll-view>
+  <view class="collection-grid">
+    <view wx:for="{{flowers}}" wx:key="_id" class="collection-item" data-species-id="{{item.speciesId}}" bind:tap="goToDetail">
+      <image class="collection-item__img" src="{{item.image}}" mode="aspectFit" />
+      <text class="collection-item__name">{{item.name}}</text>
+      <text class="collection-item__rarity" style="color: {{item.rarityColor}}">{{item.rarityText}}</text>
+    </view>
+  </view>
+  <view wx:if="{{flowers.length === 0 && !isLoading}}" class="text-center p-xl"><text class="text-body text-tertiary">还没有收集到花朵，去育种吧~</text></view>
+</view>

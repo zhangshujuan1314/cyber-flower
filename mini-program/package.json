@@ -1,0 +1,24 @@
+{
+  "name": "cyber-bloom-mini",
+  "version": "1.0.0",
+  "description": "赛博养花 - AI驱动的真实感虚拟养花微信小程序",
+  "main": "app.ts",
+  "scripts": {
+    "compile": "tsc",
+    "watch": "tsc --watch",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
+  },
+  "dependencies": {
+    "mobx-miniprogram": "^6.12.0",
+    "mobx-miniprogram-bindings": "^5.1.0",
+    "miniprogram-computed": "^5.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "miniprogram-api-typings": "^3.12.0",
+    "typescript": "^5.3.0"
+  }
+}

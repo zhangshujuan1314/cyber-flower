@@ -1,0 +1,23 @@
+<!-- 花朵查看器 — Canvas 2D真实感渲染 -->
+<view class="flower-viewer" style="width: {{size}}rpx; height: {{size}}rpx;"
+  bindtouchstart="onTouchStart"
+  bindtouchmove="onTouchMove"
+  bindtouchend="onTouchEnd"
+>
+  <canvas
+    type="2d"
+    id="flower-canvas"
+    class="flower-canvas"
+    style="width: {{canvasWidth}}rpx; height: {{canvasHeight}}rpx;"
+  ></canvas>
+
+  <!-- 养护特效叠加层 -->
+  <view wx:if="{{careAnimating}}" class="care-effect-overlay">
+    <view class="care-effect care-effect--{{careAnimating}}"></view>
+  </view>
+
+  <!-- 生长阶段标签 -->
+  <view class="stage-label" wx:if="{{flower}}">
+    <text class="stage-label__text">{{flower.stage === 'seed' ? '🌰 种子' : flower.stage === 'germinating' ? '🌱 发芽' : flower.stage === 'growing' ? '🌿 生长期' : flower.stage === 'budding' ? '🌷 花苞期' : flower.stage === 'blooming' ? '🌸 盛花期' : flower.stage === 'fruiting' ? '🍂 结果期' : '💤 休眠期'}}</text>
+  </view>
+</view>

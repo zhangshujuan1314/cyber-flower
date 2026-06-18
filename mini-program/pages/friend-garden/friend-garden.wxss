@@ -1,0 +1,9 @@
+.friend-garden-page { background: var(--color-bg-primary); min-height: 100vh; }
+.friend-flower-card { display: flex; flex-direction: column; align-items: center; padding: 32rpx; margin: 16rpx 32rpx; background: var(--color-bg-white); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); }
+.friend-flower-info { text-align: center; margin-top: 16rpx; }
+.friend-actions { padding: 32rpx; display: flex; flex-direction: column; gap: 16rpx; }
+.action-btn { height: 80rpx; background: var(--color-bg-white); border-radius: var(--radius-lg); font-size: var(--text-body); border: 1rpx solid var(--color-border); display: flex; align-items: center; justify-content: center; }
+.action-btn--like.liked { background: #E8F5E9; border-color: #4CAF50; }
+.comment-bar { display: flex; gap: 12rpx; }
+.comment-input { flex: 1; height: 72rpx; padding: 0 24rpx; background: var(--color-bg-white); border-radius: var(--radius-lg); font-size: var(--text-body); }
+.comment-send { width: 120rpx; height: 72rpx; background: var(--color-primary-500); color: #fff; font-size: var(--text-body); border-radius: var(--radius-lg); border: none; display: flex; align-items: center; justify-content: center; }
