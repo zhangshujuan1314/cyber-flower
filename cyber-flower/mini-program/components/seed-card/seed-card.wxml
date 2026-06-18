@@ -1,5 +1,5 @@
 <view class="seed-card" wx:if="{{seed}}">
-  <image class="seed-card__img" src="{{seed.previewImage}}" mode="aspectFill" bind:tap="onPreview" />
+  <image class="seed-card__img" src="{{displayImage || seed.previewImage}}" mode="aspectFill" bind:tap="onPreview" />
   <view class="seed-card__info">
     <text class="seed-card__name text-h4 text-serif">{{seed.name}}</text>
     <view class="seed-card__tags">

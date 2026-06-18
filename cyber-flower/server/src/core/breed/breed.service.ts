@@ -127,14 +127,16 @@ export class BreedService {
 
     await this.seedModel.updateOne({ _id: seedId }, { $set: { status: 'planted', plantedAt: new Date() } });
 
-    // 异步触发图像生成 (不阻塞种植)
-    void this.imageGenService.generateAllStageImages(seed.genome, flower._id as string)
-      .then((urls) => {
-        this.flowerService.update(flower._id as string, userId, {
-          visualState: { currentImage: urls.blooming, scale: 1, rotation: 0, colorAdjust: { hue: 0, saturation: 1, brightness: 1 } },
-        } as never);
-      })
-      .catch((err) => this.logger.error(`[Breed] Image gen failed for flower ${flower._id}: ${err.message}`));
+    // [2026-06-18] 断开外部图像 API 调用：花图改由前端 getFlowerImage() 本地哈希渲染，
+    // 种植不再触发 Stability/COS 图像生成管道，消除 image-gen timeout 叠加问题。
+    // ImageGenService / CosService 文件保留，不删除。
+    // void this.imageGenService.generateAllStageImages(seed.genome, flower._id as string)
+    //   .then((urls) => {
+    //     this.flowerService.update(flower._id as string, userId, {
+    //       visualState: { currentImage: urls.blooming, scale: 1, rotation: 0, colorAdjust: { hue: 0, saturation: 1, brightness: 1 } },
+    //     } as never);
+    //   })
+    //   .catch((err) => this.logger.error(`[Breed] Image gen failed for flower ${flower._id}: ${err.message}`));
 
     return flower;
   }

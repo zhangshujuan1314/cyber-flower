@@ -8,6 +8,7 @@ import { flowerService, FlowerData, CareResult } from '../../services/flower';
 import { breedService } from '../../services/breed';
 import { chatService } from '../../services/chat';
 import { getCurrentSolarTerm } from '../../utils/season-utils';
+import { getFlowerImage } from '../../utils/flowerImage';
 import authService from '../../services/auth';
 
 Page({
@@ -176,7 +177,8 @@ Page({
   async goToChat() {
     const flower = gardenStore.currentFlower as FlowerData | null;
     if (!flower) return;
-    wx.navigateTo({ url: `/sub-pkg/chat/chat?flowerId=${flower._id}&name=${flower.name}&image=${flower.visualState?.currentImage || ''}` });
+    const chatSpecies = (flower.genome as Record<string, unknown>)?.species as string || flower.name;
+    wx.navigateTo({ url: `/sub-pkg/chat/chat?flowerId=${flower._id}&name=${flower.name}&image=${getFlowerImage(chatSpecies)}` });
   },
 
   goToBreed() {
@@ -192,7 +194,7 @@ Page({
     return {
       title: flower ? `来看看我的 ${flower.name} 🌸 在赛博养花` : '来赛博养花，和我一起培育独一无二的AI之花 🌱',
       path: '/pages/garden/garden',
-      imageUrl: flower?.visualState?.currentImage,
+      imageUrl: flower ? getFlowerImage((flower.genome as Record<string, unknown>)?.species as string || flower.name) : undefined,
     };
   },
 });
